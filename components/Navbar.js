@@ -13,7 +13,7 @@ export default function Navbar (){
          <main className="bg-white shadow shadow-gray-200 w-full">
             <div className="flex justify-between items-center pt-3 px-5 h-[50px]">
                <p className="font-bold text-green-400">UrgentCa$h</p>
-               <ul className="hidden md:flex gap-10">
+               <ul className="hidden md:flex gap-10 font-semibold cursor-pointer">
                   <li>Home</li>
                   <li>Get Loan</li>
                   <li>History</li>
@@ -28,7 +28,7 @@ export default function Navbar (){
                </div>
             </div>
            {menuOpen && (
-            <div className="md:hidden px-5 pb-3">
+            <div className="md:hidden px-5 pb-1">
               <ul className="flex flex-col gap-3">
                  <li>Home</li>
                  <li>Get Loan</li>

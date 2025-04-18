@@ -1,8 +1,12 @@
  "use client"
-import { TextField } from "@mui/material";
+import { db } from "@/config/firebase.config";
+import { CircularProgress, TextField } from "@mui/material";
+import { addDoc, collection } from "firebase/firestore";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import * as yup from "yup"
+
+
 
 const schema = yup.object().shape({
   amount:yup.number().required().min(5000),
@@ -14,15 +18,35 @@ const duration = [
   {id: "90",  days: 90},
 ]
 
-export default function GetLoan (){
+export default function GetLoan ({userId}){
      const [clickedRate, setClickedRate] = useState(undefined);
      const [rate , setRate] = useState(0);
-     const [paybackAmount, setPaybackAmount] = useState(undefined);
+     const [paybackAmount, setPaybackAmount] = useState(0);
      const [loanDate, setLoanDate]= useState(0);
+     const [opsProgress, setOpsProgress] = useState(false)
 
      const {handleSubmit, handleChange, values,touched,errors} =useFormik({
     initialValues: {
       amount:""
+    },
+    onSubmit: async() => {
+       setOpsProgress(true)
+       await addDoc(collection(db, "loans"), {
+         user: userId,
+         amount: values.amount,
+         paybackAmount:paybackAmount,
+         rate: rate,
+         duration: loanDate,
+         timecreated: new Date().getTime(),
+       }).then(() => {
+        setOpsProgress(false)
+        alert(`You have successfully applied for a loan of ${values.amount} with a payback amount of #${paybackAmount} at a rate of ${rate}%  for ${loanDate}days`)
+       })
+       .catch(e => {
+        setOpsProgress(false);
+        console.error(e);
+        alert(`you have encountered an error: ${e}`)
+       })
     },
     validationSchema:schema
      })
@@ -87,11 +111,11 @@ export default function GetLoan (){
                </div>
                <div className="flex flex-col gap-3 bg-gradient-to-b from-green-500 to-green-800 border-dashed border border-green-600 p-4 rounded-md ">
                 <p className="text-green-100">Pay back Amount</p>
-                <p className="text-4xl text-white">{paybackAmount}</p>
+                <p className="text-4xl text-white">₦{paybackAmount}</p>
                </div>
                <div className="flex items-center gap-1">
                 <button  type="submit" className="p-2 rounded-md bg-green-600 text-white text-xl uppercase">Get Loan</button>
-
+                <CircularProgress  style={{display: !opsProgress ? "none" : "flex" }} />
                </div>
             </form>
           </div>
