@@ -1,6 +1,8 @@
  "use client"
+import Link from "next/link";
 import { useState } from "react";
 import { FaGripLines } from "react-icons/fa6";
+
 
 
 export default function Navbar (){
@@ -14,13 +16,13 @@ export default function Navbar (){
             <div className="flex justify-between items-center pt-3 px-5 h-[50px]">
                <p className="font-bold text-green-400">UrgentCa$h</p>
                <ul className="hidden md:flex gap-10 font-semibold cursor-pointer">
-                  <li>Home</li>
-                  <li>Get Loan</li>
-                  <li>History</li>
-                  <li>Loan-Details</li>
-                  <li>Profile</li>
+                  <li><Link href="/">Home</Link></li>
+                  <li><Link href="/dashboard/get-loan">Get Loan</Link></li>
+                  <li><Link href="/dashboard/loan-history">History</Link></li>
+                  <li><Link href="/dashboard/loan-details">Loan-Details</Link></li>
+                  <li><Link href="/dashboard/profile">Profile</Link></li>
                </ul>
-               <p className="hidden md:block h[50px] w-[80px] bg-green-400 text-white text-center">Sign In</p>
+               <p className="hidden md:block h[50px] w-[80px] bg-green-400 text-white text-center"><Link href="/auth/signin">Sign In</Link></p>
 
                <div className="block md:hidden">
                 <FaGripLines className="text-xl cursor pointer text-green-500"
