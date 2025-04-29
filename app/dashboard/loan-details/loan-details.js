@@ -85,7 +85,7 @@ export default function LoanDetails ({user}) {
     },[values.amount])
     // >>>> Flutterwave components <<<<<
     const config = {
-        public_key: process.env.FLUTTERWAVE_KEY,
+        public_key: "FLWPUBK_TEST-07eb955aba643e63f3c057bd00d016ff-X",
         tx_ref: Date.now(),
         amount: Math.round(values.amount),
         currency: 'NGN',
@@ -102,7 +102,7 @@ export default function LoanDetails ({user}) {
         },
       };
     
-     const fwconfig = {
+     const fwConfig = {
         ...config,
         text: "Make payment",
         callback : async (response)=> {
@@ -213,11 +213,13 @@ export default function LoanDetails ({user}) {
                             {touched.amount && errors.amount ? <span className="text-xs text-red-500">{errors.amount}</span> : null}
                         </div>
                         <div className="flex items-center gap-3">
-                             <Button type="submit" color="error" variant="outlined" >Validate Amount</Button>
-                             {validateAmount? <FlutterWaveButton  {...fwconfig} className="bg-green-300 rounded-md px-2 py-1 text-white" /> : null}
+                            <Button type="submit" color="error" variant="outlined">Validate Amount</Button>
+                            {validateAmount ? <FlutterWaveButton {...fwConfig} className="bg-green-600 rounded-md px-2 py-1 text-white"/> : null }
                         </div>
 
                     </form>
+                   
+                    
                  </div>
                  :
                   <div className="flex flex-col gap-4">
@@ -228,5 +230,7 @@ export default function LoanDetails ({user}) {
                  }
             </div>
         </main>
+        //tracks.earlycode.net
+        
     )
 }
