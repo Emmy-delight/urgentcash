@@ -118,7 +118,7 @@ export default function LoanDetails ({user}) {
             timecreated : new Date().getTime()
         });
 
-        const reLoanOffsets = [...(offsets || [])];
+        const reLoanOffsets = [...(offsets || [])]
         reLoanOffsets.push({
           amount: Number(values.amount), // Ensure it's a number
           paymentDocId: docId.id,
